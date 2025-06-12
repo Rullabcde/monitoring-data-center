@@ -1,4 +1,4 @@
-# Server Room Monitoring Based on IoT
+# Smart Data Center Monitoring with IoT Sensors
 
 This project is a monitoring system for temperature, humidity, and electrical parameters (voltage, current, power) for a server room or data center. The system uses **DHT11** and **PZEM-004T** sensors connected to a NodeMCU ESP8266.
 
