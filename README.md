@@ -1,95 +1,100 @@
-# Monitoring Ruang Server Berbasis IoT
+# Server Room Monitoring Based on IoT
 
-Proyek ini adalah sistem pemantauan suhu, kelembapan, dan parameter listrik (tegangan, arus, daya) untuk ruang server atau data center. Sistem ini menggunakan sensor **DHT11** dan **PZEM-004T** yang terhubung dengan NodeMCU ESP8266.
+This project is a monitoring system for temperature, humidity, and electrical parameters (voltage, current, power) for a server room or data center. The system uses **DHT11** and **PZEM-004T** sensors connected to a NodeMCU ESP8266.
 
-Data pemantauan dikirim ke platform **Blynk IoT**, memungkinkan pemantauan jarak jauh melalui aplikasi smartphone. Selain itu, sistem ini memberikan peringatan lokal melalui **Buzzer** dan **LED** jika parameter melebihi ambang batas yang ditentukan.
+Monitoring data is sent to the **Blynk IoT** platform, enabling remote monitoring via a smartphone app. Additionally, the system provides local alerts via a **Buzzer** and **LED** if parameters exceed the defined thresholds.
 
-## Fitur Utama
+## Main Features
 
-  - **🌡️ Pemantauan Suhu & Kelembapan:** Mendeteksi suhu dan kelembapan ruangan secara *real-time* menggunakan sensor DHT11.
-  - **⚡ Pemantauan Listrik:** Mengukur tegangan (V), arus (A), dan daya (W) menggunakan sensor PZEM-004T.
-  - **📱 Dasbor IoT:** Visualisasi data secara langsung pada aplikasi Blynk.
-  - **🚨 Sistem Peringatan:** Notifikasi instan melalui Buzzer dan LED jika terjadi anomali (misalnya, suhu terlalu tinggi).
-  - **🔌 Berbasis ESP8266:** Menggunakan mikrokontroler NodeMCU yang populer dan mudah digunakan.
+* **Temperature & Humidity Monitoring:** Detects room temperature and humidity in *real-time* using a DHT11 sensor.
+* **Electrical Monitoring:** Measures voltage (V), current (A), and power (W) using the PZEM-004T sensor.
+* **IoT Dashboard:** Real-time data visualization through the Blynk app.
+* **Alert System:** Instant notifications via Buzzer and LED if anomalies occur (e.g., high temperature).
+* **ESP8266-Based:** Uses the popular and easy-to-use NodeMCU microcontroller.
 
------
+---
 
-## Kebutuhan Perangkat Keras
+## Hardware Requirements
 
-Untuk membangun proyek ini, Anda memerlukan komponen berikut:
+To build this project, you will need the following components:
 
-1.  **NodeMCU ESP8266:** 1 unit
-2.  **Sensor Suhu & Kelembapan:** DHT11
-3.  **Sensor Energi Listrik:** PZEM-004T v3.0 (termasuk *Current Transformer* CT)
-4.  **Indikator Peringatan:**
-      - Buzzer Aktif (Active Buzzer)
-      - LED (warna merah atau sesuai selera)
-5.  **Resistor:** 220 Ohm (untuk LED)
-6.  **Kabel Jumper**
+1. **NodeMCU ESP8266:** 1 unit
+2. **Temperature & Humidity Sensor:** DHT11
+3. **Electrical Energy Sensor:** PZEM-004T v3.0 (includes *Current Transformer* CT)
+4. **Alert Indicators:**
 
-### Skema Rangkaian
+   * Active Buzzer
+   * LED (red or any preferred color)
+5. **Resistor:** 220 Ohm (for LED)
+6. **Jumper Wires**
 
-![Skema Rangkaian](Schematic.png)
+### Circuit Diagram
 
-## Kebutuhan Perangkat Lunak
+![Circuit Diagram](Schematic.png)
 
-1.  **[Arduino IDE](https://www.arduino.cc/en/software)**
-2.  **Driver CP2102/CH340:** Sesuai dengan tipe NodeMCU Anda.
-3.  **Blynk App:** Tersedia di [Google Play Store](https://www.google.com/search?q=https://play.google.com/store/apps/details%3Fid%3Dio.blynk) dan [Apple App Store](https://apps.apple.com/us/app/blynk-iot/id1559317868).
-4.  **Library Arduino:**
-      - `Blynk`
-      - `ESP8266WiFi`
-      - `DHT`
-      - `PZEM004Tv30`
-      - `SimpleTimer`
+## Software Requirements
 
------
+1. **[Arduino IDE](https://www.arduino.cc/en/software)**
+2. **CP2102/CH340 Driver:** Depending on your NodeMCU type
+3. **Blynk App:** Available on [Google Play Store](https://www.google.com/search?q=https://play.google.com/store/apps/details%3Fid%3Dio.blynk) and [Apple App Store](https://apps.apple.com/us/app/blynk-iot/id1559317868)
+4. **Arduino Libraries:**
 
-## Panduan Pengaturan
+   * `Blynk`
+   * `ESP8266WiFi`
+   * `DHT`
+   * `PZEM004Tv30`
+   * `SimpleTimer`
 
-### 1\. Konfigurasi Blynk
+---
 
-1.  Buat akun di aplikasi **Blynk**.
-2.  Buat **Proyek Baru** (*New Project*).
-3.  Pilih perangkat keras **NodeMCU**.
-4.  **Auth Token** akan dikirimkan ke email Anda. Simpan token ini.
-5.  Tambahkan *widget* ke dasbor Anda:
-      - **Gauge** untuk Suhu, Kelembapan, Tegangan, Arus, dan Daya.
-      - **LED** untuk status peringatan.
-      - Atur **Virtual Pin** untuk setiap *widget* sesuai dengan yang ada di kode.
+## Setup Guide
 
-### 2\. Pengaturan Arduino IDE
+### 1. Blynk Configuration
 
-1.  Instal Arduino IDE dan atur *board* **ESP8266**.
-2.  Buka **Library Manager** (`Sketch` \> `Include Library` \> `Manage Libraries...`).
-3.  Cari dan instal semua *library* yang tercantum di atas.
+1. Create an account on the **Blynk** app.
+2. Create a **New Project**.
+3. Select **NodeMCU** as the hardware.
+4. The **Auth Token** will be sent to your email. Save this token.
+5. Add *widgets* to your dashboard:
 
-### 3\. Unggah Kode
+   * **Gauge** for Temperature, Humidity, Voltage, Current, and Power
+   * **LED** for alert status
+   * Set the **Virtual Pins** for each widget according to the code
 
-1.  Buka file `.ino` dari repositori ini di Arduino IDE.
+### 2. Arduino IDE Setup
 
-2.  Ubah baris berikut dengan kredensial Anda:
+1. Install Arduino IDE and set the *board* to **ESP8266**.
+2. Open **Library Manager** (`Sketch` > `Include Library` > `Manage Libraries...`)
+3. Search for and install all the libraries listed above.
 
-    ```cpp
-    // Masukkan Auth Token dari aplikasi Blynk Anda
-    char auth[] = "YourBlynkAuthToken";
+### 3. Upload Code
 
-    // Masukkan detail WiFi Anda
-    char ssid[] = "YourWiFi_SSID";
-    char pass[] = "YourWiFi_Password";
-    ```
+1. Open the `.ino` file from this repository in Arduino IDE.
 
-3.  Pilih *board* **"NodeMCU 1.0 (ESP-12E Module)"** dan **Port** yang benar.
+2. Modify the following lines with your credentials:
 
-4.  Klik **Upload** untuk mengunggah kode ke NodeMCU.
+   ```cpp
+   // Enter your Blynk Auth Token
+   char auth[] = "YourBlynkAuthToken";
 
------
+   // Enter your WiFi credentials
+   char ssid[] = "YourWiFi_SSID";
+   char pass[] = "YourWiFi_Password";
+   ```
 
-## Cara Penggunaan
+3. Select **"NodeMCU 1.0 (ESP-12E Module)"** as the board and the correct **Port**.
 
-1.  Pastikan semua komponen terhubung sesuai dengan skema rangkaian.
-2.  Nyalakan perangkat.
-3.  NodeMCU akan terhubung ke WiFi dan server Blynk.
-4.  Buka aplikasi Blynk di smartphone Anda.
-5.  Anda akan melihat data suhu, kelembapan, dan listrik ditampilkan secara *real-time* di dasbor.
-6.  Jika suhu melebihi ambang batas yang ditentukan dalam kode, Buzzer akan berbunyi dan LED akan menyala sebagai peringatan.
+4. Click **Upload** to upload the code to the NodeMCU.
+
+---
+
+## How to Use
+
+1. Ensure all components are connected according to the circuit diagram.
+2. Power on the device.
+3. The NodeMCU will connect to WiFi and the Blynk server.
+4. Open the Blynk app on your smartphone.
+5. You will see real-time temperature, humidity, and electrical data displayed on the dashboard.
+6. If the temperature exceeds the threshold defined in the code, the Buzzer will sound and the LED will light up as an alert.
+
+---
